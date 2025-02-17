@@ -1,0 +1,120 @@
+create table CUST_CL(
+	CSTCL_ID bigint auto_increment primary key,
+	CSTCL_TYP varchar(50) not null,
+	CSTCL_TYP_VALUE varchar(50) not null,
+	CSTCL_EFCTV_DATE date not null,
+	CSTCL_CRUD_VALUE char(1) not null,
+	CSTCL_USER_ID varchar(50) not null,
+	CSTCL_WS_ID varchar(50) not null,
+	CSTCL_LOCAL_TS timestamp not null,
+	CSTCL_HOST_TS timestamp not null,
+	RULE_SYSTEM_ID varchar(32) not null,
+	CSTCL_ACPT_TS timestamp not null,
+	CSTCL_ACPT_TS_UTC_OFST char(6) not null,
+	CSTCL_UUID varchar(50) not null
+);
+
+create table CUST_ID(
+	CSTID_ID bigint auto_increment primary key,
+	CSTID_CLS_ID bigint not null,
+	CST_ID bigint not null,
+	CSTID_TYP varchar(50) not null,
+	CSTID_ITM varchar(50) not null,
+	CSTID_EFCTV_DATE date not null,
+	CSTID_CRUD_VALUE char(1) not null,
+	CSTID_USER_ID varchar(50) not null,
+	CSTID_WS_ID varchar(50) not null,
+	CSTID_LOCAL_TS timestamp not null,
+	CSTID_HOST_TS timestamp not null,
+	RULE_SYSTEM_ID varchar(32) not null,
+	CSTID_ACPT_TS timestamp not null,
+	CSTID_ACPT_TS_UTC_OFST char(6) not null,
+	CSTID_UUID varchar(50) not null,
+	foreign key (CST_ID) references CUST_DT(CSTDT_NUM),
+	foreign key (CSTID_CLS_ID) references CUST_CLS(CSTCL_ID)
+);
+
+create table CUST_DT(
+	CSTDT_NUM bigint auto_increment not null,
+	CSTDT_TYP bigint not null,
+	CSTDT_FN varchar(100) not null,
+	CSTDT_DOB date not null,
+	CSTDT_STATUS varchar(20) not null,
+	CSTDT_MOB_NUM bigint not null,
+	CSTDT_MAIL varchar(100) primary key,
+	CSTDT_ORIGIN varchar(20) not null,
+	CSTDT_EFCTV_DATE date not null,
+	CSTDT_CRUD_VALUE char(1) not null,
+	CSTDT_USER_ID varchar(50) not null,
+	CSTDT_WS_ID varchar(50) not null,
+	CSTDT_LOCAL_TS timestamp not null,
+	CSTDT_HOST_TS timestamp not null,
+	RULE_SYSTEM_ID varchar(32) not null,
+	CSTDT_ACPT_TS timestamp not null,
+	CSTDT_ACPT_TS_UTC_OFST char(6) not null,
+	CSTDT_UUID varchar(50) not null,
+	foreign key (CSTDT_TYP) references CUST_CL(CSTCL_ID),
+);
+
+create table CUST_NM(
+	CSTNM_IDTFR bigint primary key,
+	CSTNM_CLS_ID bigint not null,
+	CST_ID bigint not null,
+	CSTNM_TYP bigint auto_increment not null,
+	CSTNM_VALUE varchar(50) not null,
+	CSTNM_EFCTV_DATE date not null,
+	CSTNM_CRUD_VALUE char(1) not null,
+	CSTNM_USER_ID varchar(50) not null,
+	CSTNM_WS_ID varchar(50) not null,
+	CSTNM_LOCAL_TS timestamp not null,
+	CSTNM_HOST_TS timestamp not null,
+	RULE_SYSTEM_ID varchar(32) not null,
+	CSTNM_ACPT_TS timestamp not null,
+	CSTNM_ACPT_TS_UTC_OFST char(6) not null,
+	CSTNM_UUID varchar(50) not null,
+	foreign key (CST_ID) references CUST_DT(CSTDT_NUM),
+	foreign key (CSTNM_CLS_ID) references CUST_CL(CSTCL_ID)
+);
+
+create table CUST_PID(
+	CSTPID_IDFR bigint auto_increment primary key,
+	CUST_ID bigint not null,
+	CSTPID_CLS_ID bigint not null,
+	CSTPID_TYP bigint auto_increment not null,
+	CSTPID_TYP_VALUE varchar(50) not null,
+	CSTPID_START_DATE date not null,
+	CSTPID_END_DATE date not null,
+	CSTPID_EFCTV_DATE date not null,
+	CSTPID_CRUD_VALUE char(1) not null,
+	CSTPID_USER_ID varchar(50) not null,
+	CSTPID_WS_ID varchar(50) not null,
+	CSTPID_LOCAL_TS timestamp not null,
+	CSTPID_HOST_TS timestamp not null,
+	RULE_SYSTEM_ID varchar(32) not null,
+	CSTPID_ACPT_TS timestamp not null,
+	CSTPID_ACPT_TS_UTC_OFST char(6) not null,
+	CSTPID_UUID varchar(50) not null,
+	foreign key (CST_ID) references CUST_DT(CSTDT_NUM),
+	foreign key (CSTPID_CLS_ID) references CUST_CL(CSTCL_ID)
+);
+
+create table CUST_ADD(
+	CSTAD_IDFR bigint auto_increment primary key,
+	CUST_ID bigint not null,
+	CSTAD_CLS_ID bigint not null,
+	CSTAD_CLS_ID bigint not null,
+	CSTAD_VALUE varchar(50) not null,
+	CSTAD_EFCTV_DATE date not null,
+	CSTAD_CRUD_VALUE char(1) not null,
+	CSTAD_USER_ID varchar(50) not null,
+	CSTAD_WS_ID varchar(50) not null,
+	CSTAD_LOCAL_TS timestamp not null,
+	CSTAD_HOST_TS timestamp not null,
+	RULE_SYSTEM_ID varchar(32) not null,
+	CSTAD_ACPT_TS timestamp not null,
+	CSTAD_ACPT_TS_UTC_OFST char(6) not null,
+	CSTAD_UUID varchar(50) not null,
+	foreign key (CST_ID) references CUST_DT(CSTDT_NUM),
+	foreign key (CSTAD_CLS_ID) references CUST_CL(CSTCL_ID)
+);
+	
